@@ -32,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setTexts()
+
         binding.btnChangeStringResource.setOnClickListener {
             changeStringResource()
         }
@@ -44,12 +46,26 @@ class MainActivity : AppCompatActivity() {
 
     override fun getDelegate() = appCompatDelegate
 
+    fun setTexts() {
+        binding.txtTextByCode.setText(R.string.common_android)
+    }
+
     private fun changeStringResource() {
-        val strings = mapOf(
-            Pair("common.hello", "Hello World")
+        val enStrings = mapOf(
+            "common.hello" to "Hello-en",
+            "common.android" to "Android-en"
         )
-        Restring.putStrings(Locale.US, strings)
+        Restring.putStrings(Locale.US, enStrings)
+
+        val viStrings = mapOf(
+            "common.hello" to "Hello-vi",
+            "common.android" to "Android-vi"
+        )
+        val vnLocale = Locale("vi", "VN")
+        Restring.putStrings(vnLocale, viStrings)
+
         Reword.reword(binding.root)
+        setTexts()
     }
 
 }
